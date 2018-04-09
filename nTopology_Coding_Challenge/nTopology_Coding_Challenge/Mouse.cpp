@@ -1,0 +1,55 @@
+#include "Mouse.h"
+
+Mouse::Mouse(void)
+{
+	sensitivity = 0.25f;
+	lastPosition = vec2(0.0f,0.0f);
+}
+
+Mouse::~Mouse(void)
+{
+}
+
+int Mouse::getButton()
+{
+	return button;
+}
+
+void Mouse::setButton(int newButton)
+{
+	button = newButton;
+}
+
+int Mouse::getState()
+{
+	return state;
+}
+
+void Mouse::setState(int newState)
+{
+	state = newState;
+}
+
+float Mouse::getSensitivity()
+{
+	return sensitivity;
+}
+
+vec2 Mouse::getPositionDelta()
+{
+	return positionDelta;
+}
+
+bool Mouse::move(int x, int y)
+{
+	if (state == GLUT_DOWN 
+		&& button == GLUT_LEFT_BUTTON
+		&& glutGetModifiers() == GLUT_ACTIVE_ALT)
+	{
+		position = vec2(x,y);
+		positionDelta = position - lastPosition;
+		lastPosition = position;
+		return true;
+	}
+	return false;
+}
