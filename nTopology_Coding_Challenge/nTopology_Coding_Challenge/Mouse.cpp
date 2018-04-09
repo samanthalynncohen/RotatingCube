@@ -53,3 +53,9 @@ bool Mouse::move(int x, int y)
 	}
 	return false;
 }
+
+void Mouse::click(int button, int state)
+{
+	setButton(button);
+	setState(state);
+}

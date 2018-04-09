@@ -1,3 +1,5 @@
+#include "Dependencies\glew\glew.h"
+#include "Dependencies\freeglut\freeglut.h"
 #include "Dependencies\glm\glm.hpp"
 #include <vector>
 #include <iostream>
@@ -12,6 +14,12 @@ class ObjLoader
 public:
 	ObjLoader(void);
 	~ObjLoader(void);
-	bool load(const char * filePath, vector<vec3> & vertices, vector<vec3> & normals, vector<vec3> & colors);
+	void load(const char * filePath);
+	bool loadFromFile(const char * filePath, vector<vec3> & vertices, vector<vec3> & normals, vector<vec3> & colors);
+	void loadBuffers(vector<vec3> vertices, vector<vec3> normals, vector<vec3> colors);
+private:
+	vector<vec3> vertices;
+	vector<vec3> normals;
+	vector<vec3> colors;
 };
 

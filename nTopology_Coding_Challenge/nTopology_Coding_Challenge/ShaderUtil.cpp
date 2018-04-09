@@ -66,22 +66,37 @@ GLuint ShaderUtil::initShaderProgram(char* vertexShaderName, char* fragmentShade
 
 	int link_result = 0;
 
-	GLuint program = glCreateProgram();
-	glAttachShader(program, vertexShader);
-	glAttachShader(program, fragmentShader);
+	shaderProgram = glCreateProgram();
+	glAttachShader(shaderProgram, vertexShader);
+	glAttachShader(shaderProgram, fragmentShader);
 
-	glLinkProgram(program);
-	glGetProgramiv(program, GL_LINK_STATUS, &link_result);
+	glLinkProgram(shaderProgram);
+	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &link_result);
 
 	if (link_result == GL_FALSE)
 	{
 		int info_log_length = 0;
-		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &info_log_length);
+		glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &info_log_length);
 		vector<char> program_log(info_log_length);
-		glGetProgramInfoLog(program, info_log_length, NULL, &program_log[0]);
+		glGetProgramInfoLog(shaderProgram, info_log_length, NULL, &program_log[0]);
 		cout << "Shader Loader : LINK ERROR" << std::endl << &program_log[0] << endl;
        return 0;
 	}
 
-	return program;
+	return shaderProgram;
+}
+
+void ShaderUtil::loadLights()
+{
+	float ambientStrength = 0.4f;
+	GLuint ambientStrengthLocation = glGetUniformLocation(shaderProgram, "ambientStrength");
+	glProgramUniform1f(shaderProgram, ambientStrengthLocation, ambientStrength);
+
+	vec3 lightPosition = vec3(0.0f,1.0f,0.0f);
+	GLuint lightPositionLocation = glGetUniformLocation(shaderProgram, "lightPosition");
+	glProgramUniform3fv(shaderProgram, lightPositionLocation, 1, &lightPosition[0]);
+
+	vec3 lightColor = vec3(1.0f,1.0f,1.0f);
+	GLuint lightColorLocation = glGetUniformLocation(shaderProgram, "lightColor");
+	glProgramUniform3fv(shaderProgram, lightColorLocation, 1, &lightColor[0]);
 }

@@ -9,7 +9,13 @@ ObjLoader::~ObjLoader(void)
 {
 }
 
-bool ObjLoader::load(const char * filePath, vector<vec3> & vertices, vector<vec3> & normals, vector<vec3> & colors)
+void ObjLoader::load(const char * filePath)
+{
+	loadFromFile(filePath, vertices, normals, colors);
+	loadBuffers(vertices, normals, colors);
+}
+
+bool ObjLoader::loadFromFile(const char * filePath, vector<vec3> & vertices, vector<vec3> & normals, vector<vec3> & colors)
 {
 	vector<vec3> tempVertices, tempNormals;
 	vector<unsigned int> faceVertexIndices, faceNormalIndices;
@@ -79,4 +85,35 @@ bool ObjLoader::load(const char * filePath, vector<vec3> & vertices, vector<vec3
 	}
 
 	return true;
+}
+
+void ObjLoader::loadBuffers(vector<vec3> vertices, vector<vec3> normals, vector<vec3> colors)
+{
+	unsigned int vao;
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+
+	/** Setting up vertex buffer **/
+	unsigned int vbo;
+	glGenBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vec3), &vertices[0], GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vec3), (void*)0);
+
+	/** Setting up color buffer **/
+	unsigned int cbo;
+	glGenBuffers(1, &cbo);
+	glBindBuffer(GL_ARRAY_BUFFER, cbo);
+	glBufferData(GL_ARRAY_BUFFER, colors.size() * sizeof(vec3), &colors[0], GL_STATIC_DRAW);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+	/** Setting up normal buffer **/
+	unsigned int nbo;
+	glGenBuffers(1, &nbo);
+	glBindBuffer(GL_ARRAY_BUFFER, nbo);
+	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(vec3), &normals[0], GL_STATIC_DRAW);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 }

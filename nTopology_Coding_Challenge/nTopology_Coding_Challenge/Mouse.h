@@ -16,6 +16,7 @@ public:
 	void setState(int newState);
 	float getSensitivity();
 	bool move(int x, int y);
+	void click(int button, int state);
 	vec2 getPositionDelta();
 private:
 	int button, state;
