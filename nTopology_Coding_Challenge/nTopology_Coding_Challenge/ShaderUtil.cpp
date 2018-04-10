@@ -88,11 +88,11 @@ GLuint ShaderUtil::initShaderProgram(char* vertexShaderName, char* fragmentShade
 
 void ShaderUtil::loadLights()
 {
-	float ambientStrength = 0.4f;
+	float ambientStrength = 0.3f;
 	GLuint ambientStrengthLocation = glGetUniformLocation(shaderProgram, "ambientStrength");
 	glProgramUniform1f(shaderProgram, ambientStrengthLocation, ambientStrength);
 
-	vec3 lightPosition = vec3(0.0f,1.0f,0.0f);
+	vec3 lightPosition = vec3(5.0f,7.0f,-3.0f);
 	GLuint lightPositionLocation = glGetUniformLocation(shaderProgram, "lightPosition");
 	glProgramUniform3fv(shaderProgram, lightPositionLocation, 1, &lightPosition[0]);
 

@@ -2,8 +2,9 @@
 
 Mouse::Mouse(void)
 {
-	sensitivity = 0.25f;
-	lastPosition = vec2(0.0f,0.0f);
+	firstMove = true;
+	sensitivity = 0.05f;
+	lastPosition =  vec2(800.0f / 2.0f, 600.0f / 2.0f);
 }
 
 Mouse::~Mouse(void)
@@ -47,7 +48,14 @@ bool Mouse::move(int x, int y)
 		&& glutGetModifiers() == GLUT_ACTIVE_ALT)
 	{
 		position = vec2(x,y);
-		positionDelta = position - lastPosition;
+
+		if (firstMove)
+		{
+			lastPosition = position;
+			firstMove = false;
+		}
+		
+		positionDelta = vec2(position.x - lastPosition.x, lastPosition.y - position.y);
 		lastPosition = position;
 		return true;
 	}

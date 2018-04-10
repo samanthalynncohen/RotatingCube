@@ -21,5 +21,4 @@ void main(void)
     vec3 ambient = ambientStrength * lightColor;
     vec3 result = (ambient + diffuse) * fragment_color;
     color = result;
-	//color = fragment_color;
 }

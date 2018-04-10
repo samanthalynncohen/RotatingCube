@@ -13,10 +13,13 @@ class Camera
 public:
 	Camera(void);
 	~Camera(void);
-	mat4 getViewMatrix();
+	mat4 getModel();
+	mat4 getView();
+	mat4 getProjection();
 	void update(vec2 positionDelta, float sensitivity);
 private:
-	mat4 viewMatrix;
-	float roll, pitch, yaw;
+	mat4 view, projection, model;
+	float pitch, yaw, roll, fov, width, height, radius;
+	vec3 eye, target, direction, up, right, cameraUp;
 };
 

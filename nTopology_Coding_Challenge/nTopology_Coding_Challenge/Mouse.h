@@ -19,6 +19,7 @@ public:
 	void click(int button, int state);
 	vec2 getPositionDelta();
 private:
+	bool firstMove;
 	int button, state;
 	float sensitivity;
 	vec2 lastPosition;

@@ -13,7 +13,7 @@
 using namespace std;
 using namespace glm;
 
-const char * filePath = "C:/Users/Samantha/Documents/nTopology_Coding_Challenge/nTopology_Coding_Challenge/ObjFiles/cube.obj";
+const char * filePath = "./ObjFiles/cube.obj";
 GLuint shaderProgram;
 Camera camera;
 Mouse mouse;
@@ -37,9 +37,18 @@ void closeCallback()
 
 void updateScreen()
 {
-	mat4 rotation = camera.getViewMatrix();
-	GLint rotationLocation = glGetUniformLocation(shaderProgram, "rotation");
-	glProgramUniformMatrix4fv(shaderProgram, rotationLocation, 1, GL_FALSE, &rotation[0][0]);
+	mat4 projection = camera.getProjection();
+	GLuint projectionLocation = glGetUniformLocation(shaderProgram, "projection");
+	glProgramUniformMatrix4fv(shaderProgram, projectionLocation, 1, GL_FALSE, &projection[0][0]);
+
+	mat4 view = camera.getView();
+	GLuint viewLocation = glGetUniformLocation(shaderProgram, "view");
+	glProgramUniformMatrix4fv(shaderProgram, viewLocation, 1, GL_FALSE, &view[0][0]);
+
+	mat4 model = camera.getModel();
+	GLuint modelLocation = glGetUniformLocation(shaderProgram, "model");
+	glProgramUniformMatrix4fv(shaderProgram, modelLocation, 1, GL_FALSE, &model[0][0]);
+
 	glutPostRedisplay();
 }
 
@@ -66,6 +75,8 @@ void initGls(int argc, char **argv)
 {
 	glutInit(&argc,argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+	glutInitWindowPosition(500, 500);
+	glutInitWindowSize(800, 600);
 	glutCreateWindow("Window");
 	
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);

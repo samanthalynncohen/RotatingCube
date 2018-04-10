@@ -1,15 +1,12 @@
-﻿Build started 4/9/2018 3:19:10 AM.
+﻿Build started 4/9/2018 10:35:29 PM.
      1>Project "C:\Users\Samantha\Documents\RotatingCube\nTopology_Coding_Challenge\nTopology_Coding_Challenge\nTopology_Coding_Challenge.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\nTopology_Coding_Challenge.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp main.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
      1>c:\users\samantha\documents\rotatingcube\ntopology_coding_challenge\ntopology_coding_challenge\main.cpp(26): warning C4305: 'argument' : truncation from 'double' to 'GLclampf'
      1>c:\users\samantha\documents\rotatingcube\ntopology_coding_challenge\ntopology_coding_challenge\main.cpp(26): warning C4305: 'argument' : truncation from 'double' to 'GLclampf'
-         Generating Code...
-         Skipping... (no relevant changes detected)
-         Camera.cpp
        Link:
          c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Samantha\Documents\RotatingCube\nTopology_Coding_Challenge\Debug\nTopology_Coding_Challenge.exe" /NOLOGO /LIBPATH:Dependencies\glfw\lib /LIBPATH:Dependencies\glfw /LIBPATH:Dependencies\freeglut /LIBPATH:Dependencies\glew /LIBPATH:Dependencies\glm GLFW.lib opengl32.lib freeglut.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\nTopology_Coding_Challenge.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Samantha\Documents\RotatingCube\nTopology_Coding_Challenge\Debug\nTopology_Coding_Challenge.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Samantha\Documents\RotatingCube\nTopology_Coding_Challenge\Debug\nTopology_Coding_Challenge.lib" /MACHINE:X86 Debug\Camera.obj
          Debug\main.obj
@@ -27,4 +24,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.75
+Time Elapsed 00:00:01.38

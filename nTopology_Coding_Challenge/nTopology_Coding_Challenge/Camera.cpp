@@ -9,7 +9,27 @@ using namespace glm;
 
 Camera::Camera(void)
 {
-	viewMatrix = mat4(1.0f);
+	fov = 45.0f;
+
+	width = 800.0f;
+	height = 600.0f;
+
+	eye = vec3(0.0f, 0.0f, 100.0f);
+	target = vec3(0.0f, 0.0f, 0.0f);
+	up = vec3(0.0f, 1.0f, 0.0f);
+
+	direction = normalize(eye - target);
+	right = normalize(cross(up, direction));
+	cameraUp = normalize(cross(direction, right));
+
+	view = lookAt(eye, target, up);
+	projection = perspective(radians(fov), width / height, 0.1f, 500.0f); 
+	model = rotate(model, radians(0.0f), vec3(1.0f, 0.0f, 0.0f)); 
+	
+	yaw = -90.0f;
+	pitch =  0.0f;
+	roll = 0.0f;
+	radius = length(eye-target);
 }
 
 
@@ -17,25 +37,42 @@ Camera::~Camera(void)
 {
 }
 
-mat4 Camera::getViewMatrix()
+mat4 Camera::getModel()
 {
-	return viewMatrix;
+	return model;
+}
+
+mat4 Camera::getView()
+{
+	return view;
+}
+
+mat4 Camera::getProjection()
+{
+	return projection;
 }
 
 void Camera::update(vec2 positionDelta, float sensitivity)
-{
+{	
 	yaw += positionDelta.x * sensitivity;
 	pitch += positionDelta.y * sensitivity;
 
-	mat4 tempRoll = mat4(1.0f);
-	mat4 tempPitch = mat4(1.0f);
-	mat4 tempYaw = mat4(1.0f);
+	if (pitch > 89.0f)
+	{
+		pitch = 89.0f;
+	}
+	else if (pitch < -89.0f)
+	{
+		pitch = -89.0f;
+	}
 
-	tempRoll = rotate(tempRoll, roll, vec3(0.0f, 0.0f, 1.0f));
-	tempPitch = rotate(tempPitch, pitch, vec3(1.0f, 0.0f, 0.0f));
-	tempYaw = rotate(tempYaw, yaw, vec3(0.0f, 1.0f, 0.0f));
+	eye.x = cos(radians(yaw)) * cos(radians(pitch)) * radius;
+	eye.y = sin(radians(pitch)) * radius;
+	eye.z = sin(radians(yaw)) * cos(radians(pitch)) * radius;
 
-	mat4 rotation = tempRoll * tempPitch * tempYaw;
+	direction = normalize(eye - target);
+	right = normalize(cross(up, direction));
+	cameraUp = normalize(cross(direction, right));
 
-	viewMatrix = rotation;
+	view = lookAt(eye, target, cameraUp);
 }
