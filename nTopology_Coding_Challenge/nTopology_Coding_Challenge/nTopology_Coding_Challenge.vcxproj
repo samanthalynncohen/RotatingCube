@@ -23,6 +23,7 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="ShaderUtil.cpp" />
+    <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fragmentShader.glsl" />
@@ -62,7 +63,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>Dependencies\glfw\lib;Dependencies\glfw;Dependencies\freeglut;Dependencies\glew;Dependencies\glm</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>Dependencies\stb;Dependencies\glfw\lib;Dependencies\glfw;Dependencies\freeglut;Dependencies\glew;Dependencies\glm</AdditionalLibraryDirectories>
       <AdditionalDependencies>GLFW.lib;opengl32.lib;freeglut.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

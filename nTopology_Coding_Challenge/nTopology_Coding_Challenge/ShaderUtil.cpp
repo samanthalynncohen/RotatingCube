@@ -100,3 +100,51 @@ void ShaderUtil::loadLights()
 	GLuint lightColorLocation = glGetUniformLocation(shaderProgram, "lightColor");
 	glProgramUniform3fv(shaderProgram, lightColorLocation, 1, &lightColor[0]);
 }
+
+void ShaderUtil::loadTexture()
+{
+	int width, height, nrChannels;
+	unsigned char *data = stbi_load("./container.jpg", &width, &height, &nrChannels, 0);
+	unsigned int texture;
+
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	if (data)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+	{
+		cout << "Could not load texture" << endl;
+	}
+
+	stbi_image_free(data);
+}
+
+void ShaderUtil::shiftTexture(vec2 textureOffset)
+{
+	GLuint textureOffsetLocation = glGetUniformLocation(shaderProgram, "textureOffset");
+	glProgramUniform2fv(shaderProgram, textureOffsetLocation, 1, &textureOffset[0]);
+	glutPostRedisplay();
+}
+
+void ShaderUtil::updatePerspective(mat4 projection, mat4 view, mat4 model)
+{
+	GLuint projectionLocation = glGetUniformLocation(shaderProgram, "projection");
+	glProgramUniformMatrix4fv(shaderProgram, projectionLocation, 1, GL_FALSE, &projection[0][0]);
+
+	GLuint viewLocation = glGetUniformLocation(shaderProgram, "view");
+	glProgramUniformMatrix4fv(shaderProgram, viewLocation, 1, GL_FALSE, &view[0][0]);
+
+	GLuint modelLocation = glGetUniformLocation(shaderProgram, "model");
+	glProgramUniformMatrix4fv(shaderProgram, modelLocation, 1, GL_FALSE, &model[0][0]);
+	
+	glutPostRedisplay();
+}

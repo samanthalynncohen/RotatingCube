@@ -17,6 +17,7 @@ public:
 	mat4 getView();
 	mat4 getProjection();
 	void update(vec2 positionDelta, float sensitivity);
+	vec3 screenToWorld(int x, int y, int width, int height);
 private:
 	mat4 view, projection, model;
 	float pitch, yaw, roll, fov, width, height, radius;

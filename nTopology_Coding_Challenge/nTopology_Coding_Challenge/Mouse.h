@@ -15,9 +15,11 @@ public:
 	int getState();
 	void setState(int newState);
 	float getSensitivity();
-	bool move(int x, int y);
+	bool changePerspective(int x, int y);
+	bool draw(int x, int y);
 	void click(int button, int state);
 	vec2 getPositionDelta();
+	vec3 screenToWorld(int x, int y, mat4 model, mat4 projection, mat4 view);
 private:
 	bool firstMove;
 	int button, state;
